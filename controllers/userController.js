@@ -1,7 +1,9 @@
 const User = require("../models/userModel");
 const jwt = require("jsonwebtoken");
 const { hashPassword, comparePassword } =require("../helpers/authHelper");
+const Order = require("../models/orderModel");
 require("dotenv").config;
+
 
 exports.register = async (req, res )=> {
     try {
@@ -120,3 +122,29 @@ exports.updateProfile = async (req, res) => {
         console.log(error);
     }
 }
+
+// GetOrder
+exports.getOrders = async (req, res) => {
+    try {
+      const orders = await Order.find({ buyer: req.user._id })
+        .populate("products", "-photo")
+        .populate("buyer", "name");
+      res.json(orders);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  // All Order
+  exports.allOrders = async (req, res) => {
+    try {
+      const orders = await Order.find({})
+        .populate("products", "-photo")
+        .populate("buyer", "name")
+        .sort({ createdAt: "-1" });
+      res.json(orders);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
