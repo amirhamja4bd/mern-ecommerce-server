@@ -4,7 +4,3 @@ git commit -m "first commit"
 git branch -M main
 git remote add origin https://github.com/amirhamja4bd/mern-ecommerce.git
 git push -u origin main
-
-
-
-Amir hamza
