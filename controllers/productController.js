@@ -19,8 +19,8 @@ const sgMail =require("@sendgrid/mail");
 // Product Create
 exports.create = async (req, res) => {
   try {
-    // console.log(req.fields);
-    // console.log(req.files);
+    console.log(req.fields);
+    console.log(req.files);
     const { name, description, price, category, quantity, shipping } =
       req.fields;
     const { photo } = req.files;
@@ -95,12 +95,14 @@ exports.photo = async (req, res) => {
     );
     if (product.photo.data) {
       res.set("Content-Type", product.photo.contentType);
+      res.set("Cross-Origin-Resource-Policy", "cross-origin")
       return res.send(product.photo.data);
     }
   } catch (err) {
     console.log(err);
   }
 };
+
 // Product remove
 exports.remove = async (req, res) => {
   try {
